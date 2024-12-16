@@ -7,7 +7,17 @@ const app = express();
 //     res.send("Hahaaha");
 // });
 
+app.get("/getuser/:userId",(req,res)=>{
+  console.log(req.params);
+  res.send({ name:"Sreejith", email:"test@gmail.com"})
+});
+app.get("/userdetails",(req,res)=>{
+    console.log(req.query);
+    res.send({ name:"Sreejith", email:"test@gmail.com"})
+  });
+
 app.get("/user", (req,res)=>{
+    console.log(req.query);
     res.send({ name:"Sreejith", email:"test@gmail.com"})
 });
 
