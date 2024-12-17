@@ -2,17 +2,20 @@
 const express = require("express");
 
 const app = express();
-app.use("/",(req,res)=>{
-    res.send("Staring Nodejs Program");
-});
+app.use("/user",(req,res,next)=>{
+    //res.send("Staring Nodejs Program- first response");
+    console.log("response 1")
+    next();
+},[(req,res,next)=>{
+    console.log("Response 2");
+   // res.send("Response 2");
+    next();
+},(req,res,next)=>{
+    console.log("Response 3");
+    res.send("Response 2")
+   //next();
+}]);
 
-app.use("/hello",(req,res)=>{
-    res.send("Hello from the NodeJs App.")
-});
-
-app.use("/test", (req,res)=>{
-    res.send("Hello from the server");
-});
 
 app.listen(7777,()=>{
     console.log("Server is successfully listening on port 7777");
