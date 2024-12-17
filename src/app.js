@@ -1,18 +1,33 @@
 //console.log("Staring Nodejs Program..😊")
 const express = require("express");
-
 const app = express();
-app.use("/",(req,res)=>{
-    res.send("Staring Nodejs Program");
-});
+const {adminAuth ,userAuth } = require('./middlewares/auth');
 
-app.use("/hello",(req,res)=>{
-    res.send("Hello from the NodeJs App.")
+//Handle the auth middleware for all get,post.. request
+app.use("/admin",adminAuth);
+app.get("/user/login",(req,res)=>{
+    res.send("User logined successfully...")
+})
+// app.use("/admin",(req,res,next)=>{
+//    const token ='1234';
+//    const isAdminAuthorized = token === '12342';
+//    if(!isAdminAuthorized){
+//     res.status(401).send("unauthorized requets!")
+//    }else {
+//     next();
+//    }
+// });
+app.get("/admin/getAlldata",(req,res)=>{
+    res.send("Get All user data")
 });
+app.delete("/admin/deleteuser",(req,res)=>{
+    res.send("User data deleted successfully!")
+});
+app.get("/user/getData",userAuth,(req,res)=>{
+    res.send("Get User Data...")
+})
 
-app.use("/test", (req,res)=>{
-    res.send("Hello from the server");
-});
+
 
 app.listen(7777,()=>{
     console.log("Server is successfully listening on port 7777");
